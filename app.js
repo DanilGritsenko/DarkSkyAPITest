@@ -1,7 +1,12 @@
 window.addEventListener('load', ()=> {
-    let long = 24.7037952;
-    let lat = 59.4075648;
+    let lat = 24.7037952;
+    let long = 59.4075648;
 
+    let temperatureDegree = document.querySelector(".temperature-degree");
+    let temperatureDescription = document.querySelector(".temperature-description");
+    let locationTimeZone = document.querySelector(".location-timezone");
+    let temperatureSection = document.querySelector(".degree-section");
+    let temperatureSectionSpan = document.querySelector(".degree-section span");
 
 
 
@@ -25,7 +30,23 @@ window.addEventListener('load', ()=> {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        const {temperature, summary, icon} = data.currently;
+        temperatureDegree.textContent = temperature;
+        temperatureDescription.textContent = summary;
+        locationTimeZone.textContent = data.timezone;
+
+        let celsius = (temperature - 32) * (5/9);
+        temperatureSection.addEventListener('click',() => {
+            if(temperatureSectionSpan.textContent === "F"){
+                temperatureSectionSpan.textContent = "C";
+                temperatureDegree.textContent = Math.floor(celsius);
+            } else{
+                temperatureSectionSpan.textContent = "F";
+                temperatureDegree.textContent = temperature;
+            }
+            
+        })
+
     })
 
 });
