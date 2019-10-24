@@ -7,6 +7,8 @@ window.addEventListener('load', ()=> {
     let locationTimeZone = document.querySelector(".location-timezone");
     let temperatureSection = document.querySelector(".degree-section");
     let temperatureSectionSpan = document.querySelector(".degree-section span");
+   
+    //setIcon(icon, document.querySelector(".icon"));
 
 
 
@@ -34,7 +36,7 @@ window.addEventListener('load', ()=> {
         temperatureDegree.textContent = temperature;
         temperatureDescription.textContent = summary;
         locationTimeZone.textContent = data.timezone;
-
+        setIcon(icon, document.querySelector(".icon"));
         let celsius = (temperature - 32) * (5/9);
         temperatureSection.addEventListener('click',() => {
             if(temperatureSectionSpan.textContent === "F"){
@@ -49,4 +51,13 @@ window.addEventListener('load', ()=> {
 
     })
 
+    function setIcon(icon, iconID){
+        const skycons = new Skycons({color:"white"});
+        const currentIcon = icon.replace(/-/g,"_").toUpperCase();
+        skycons.play();
+        return skycons.set(iconID, Skycons[currentIcon]);
+    }
+
 });
+
+
